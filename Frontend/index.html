@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Roast AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon"
+    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">💣</text></svg>'>
+</head>
+
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <h1>💣 UI Roast <span>AI</span></h1>
+    <p>Upload a screenshot and get instant AI feedback</p>
+  </header>
+
+  <main>
+
+    <!-- ── Upload Section ── -->
+    <section>
+      <h2>Upload Screenshot</h2>
+
+      <div id="dropZone">
+        <span class="drop-icon">📤</span>
+        Drag &amp; drop your screenshot here<br>
+        or <label for="fileInput" onclick="event.stopPropagation()">choose a file</label>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+      </div>
+
+      <!-- Preview -->
+      <div id="previewContainer">
+        <img id="previewImage" src="" alt="Uploaded screenshot preview">
+        <button id="removeBtn" type="button">✕ Remove</button>
+      </div>
+
+      <button id="analyzeBtn" type="button" disabled>Analyze Design</button>
+    </section>
+
+    <!-- ── Loading ── -->
+    <section id="loadingSection">
+      <p>AI is roasting this UI... 🔥</p>
+    </section>
+
+    <!-- ── Results ── -->
+    <section id="resultsSection">
+      <h2>AI Feedback Dashboard</h2>
+
+      <!-- Score Cards -->
+      <div class="scores-grid">
+        <div class="score-card">
+          <div class="score-label">🎨 Design</div>
+          <div class="score-value"><span id="designScore">0</span></div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">♿ Accessibility</div>
+          <div class="score-value"><span id="accessibilityScore">0</span></div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">📱 Mobile</div>
+          <div class="score-value"><span id="mobileScore">0</span></div>
+        </div>
+      </div>
+
+      <!-- Feedback Blocks -->
+      <div class="feedback-block">
+        <h3>❌ UI Issues</h3>
+        <ul id="uiIssues"></ul>
+      </div>
+
+      <div class="feedback-block">
+        <h3>🎨 Color Suggestions</h3>
+        <ul id="colorSuggestions"></ul>
+      </div>
+
+      <div class="feedback-block">
+        <h3>📱 Mobile Tips</h3>
+        <ul id="mobileTips"></ul>
+      </div>
+
+      <div class="feedback-block">
+        <h3>⭐ CTA Fixes</h3>
+        <ul id="ctaFixes"></ul>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
