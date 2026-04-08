@@ -11,6 +11,7 @@ from werkzeug.utils import secure_filename
 UPLOAD_FOLDER      = "uploads"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "") # <-- paste your key here
+print(f"[+] API Key loaded: {bool(OPENROUTER_API_KEY)}")
 
 app = Flask(__name__)
 CORS(app, origins="*")
@@ -80,7 +81,6 @@ def analyze():
 
     prompt = """You are an expert UI/UX designer and accessibility consultant.
 Analyze the provided UI screenshot and return ONLY a valid JSON object — no markdown, no explanation, just raw JSON.
-
 The JSON must follow this exact structure:
 {
   "design_score": <integer 0-100>,
@@ -91,12 +91,10 @@ The JSON must follow this exact structure:
   "mobile_tips": [<up to 4 mobile responsiveness tips as strings>],
   "cta_fixes": [<up to 4 call-to-action improvement suggestions as strings>]
 }
-
 Scoring guide:
 - design_score: visual hierarchy, spacing, typography, consistency
 - accessibility_score: contrast ratios, font sizes, labels, ARIA considerations
 - mobile_score: responsiveness, touch targets, layout adaptability
-
 Be specific and actionable. Reference actual elements visible in the screenshot."""
 
     try:
@@ -128,6 +126,9 @@ Be specific and actionable. Reference actual elements visible in the screenshot.
             }
         )
 
+        print(f"[+] Status: {response.status_code}")
+        print(f"[+] Response: {response.text}")
+
         result = response.json()
         print(f"[+] OpenRouter response: {result}")
 
@@ -135,6 +136,7 @@ Be specific and actionable. Reference actual elements visible in the screenshot.
             return jsonify({"error": result["error"].get("message", "Unknown error")}), 500
 
         raw_text = result["choices"][0]["message"]["content"]
+        print(f"[+] Raw text: {raw_text}")
         print(f"[+] AI text:\n{raw_text}\n")
 
         data = parse_ai_response(raw_text)
